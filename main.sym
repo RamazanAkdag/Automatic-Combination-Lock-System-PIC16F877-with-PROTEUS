@@ -1,0 +1,105 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+006     lcd
+006     lcdlat
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     karakterSayisi
+021-026 asilSifre
+027     sayac
+028-02D girilenSifre
+02E     MAIN.basildi
+02F     karsilastir.esitlikKontrolu
+02F     sifreyiAl.basildi
+02F     lcd_init.i
+02F     MAIN.@SCRATCH1
+02F     @PSTRINGC7_640.@SCRATCH1
+030     karsilastir.i
+030     lcd_init.@SCRATCH1
+030     sifreyiAl.@SCRATCH1
+030     @PSTRINGC7_640.@SCRATCH2
+031     sifreyiAl.@SCRATCH2
+031     karsilastir.@SCRATCH1
+031     @PSTRINGC7_640.@SCRATCH3
+032     @PSTRINGC7_640.@SCRATCH4
+033     lcd_putc.c
+034     lcd_gotoxy.x
+034     @delay_ms1.P1
+035     lcd_gotoxy.y
+036     lcd_gotoxy.address
+037     lcd_gotoxy.@SCRATCH1
+038     lcd_send_byte.address
+039     lcd_send_byte.n
+03A     lcd_read_byte.low
+03A     lcd_send_byte.@SCRATCH1
+03B     lcd_send_nibble.n
+03B     lcd_read_byte.high
+03C     lcd_read_byte.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+086     lcdtris
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  LCD_INIT_STRING.call
+000008  LCD_INIT_STRING.data
+00000C  @const659.call
+000011  @const667.call
+000018  @const669.call
+000020  @delay_ms1
+000035  lcd_send_nibble
+000041  lcd_read_nibble
+000047  lcd_send_byte
+00004D  lcd_read_byte
+000087  lcd_init
+0000BA  lcd_gotoxy
+0000CC  lcd_putc
+0000F8  sifreyiAl
+0001DB  karsilastir
+000202  @PSTRINGC7_640
+00024D  @cinit1
+00024D  MAIN
+000254  @cinit2
+
+Project Directory:
+    D:\programmerRamoFinallyStarted\PIC_C\ders\keypad\
+
+Project Files:
+    main.c                                                  [02-Haz-23 10:49  CRC=2416FA74]
+    ..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h   [21-Haz-13 16:04  CRC=A355A189]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\lcd.c      [23-Aðu-12 09:01  CRC=D28E8746]
+    ..\..\..\..\Program Files (x86)\PICC\Drivers\stdbool.h  [21-May-12 10:29  CRC=815AEDE8]
+
+Source signature=9CB0FF13
+
+Units:
+    main (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   main.xsym
+    Errors:      main.err
+    Ext Symbols: main.esym
+    INHX8:       main.hex
+    Symbols:     main.sym
+    List:        main.lst
+    Debug/COFF:  main.cof
+    Project:     main.ccspjt
+    Call Tree:   main.tre
+    Statistics:  main.STA

@@ -1,0 +1,175 @@
+#include <16F877.h>
+#device ADC=16
+
+#FUSES NOWDT                    //No Watch Dog Timer
+#FUSES NOBROWNOUT               //No brownout reset
+#FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O
+
+#use delay(crystal=4MHz)
+#use STANDARD_IO( D )
+#use FIXED_IO( B_outputs=PIN_B7,PIN_B6,PIN_B5,PIN_B4,PIN_B3,PIN_B2,PIN_B1,PIN_B0 )
+
+#define use_portb_lcd TRUE
+#include <lcd.c>
+#include <stdbool.h>
+
+  int karakterSayisi = 0;
+  char asilSifre[] = "**1234";
+  int sayac = 0;
+  char girilenSifre[];
+    
+void sifreyiAl(int basildi){
+      
+      
+      
+      switch(basildi){
+            case 0b01111000: //0 olma durumu
+               lcd_putc('0');
+               girilenSifre[sayac]='0';
+               sayac++;
+               break;
+            
+            case 0b00101000: 
+               lcd_putc('1');
+               girilenSifre[sayac]='1';
+               sayac++;
+               break;
+               //1 olma durumu
+            
+            case 0b01101000: //2
+               lcd_putc('2');
+               girilenSifre[sayac]='2';
+               sayac++;
+               break;
+            case 0b10101000: //3
+               printf(lcd_putc,'3');
+               girilenSifre[sayac]='3';
+               sayac++;
+               break;
+            
+            case 0b00011000: // 4
+               lcd_putc('4');
+               girilenSifre[sayac]='4';
+               sayac++;
+               break;
+            case 0b01011000: // 5
+               lcd_putc('5');
+               girilenSifre[sayac]='5';
+               sayac++;
+               break;
+            case 0b10011000: //6
+               lcd_putc('6');
+               girilenSifre[sayac]='6';
+               sayac++;
+               break;
+            case 0b00001000: //7 
+               lcd_putc('7');
+               girilenSifre[sayac]='7';
+               sayac++;
+               break;
+           
+            case 0b01001000: //8
+               lcd_putc('8');
+               girilenSifre[sayac]='8';
+               sayac++;
+               break;
+            
+            case 0b10001000://9
+               lcd_putc('9');
+               girilenSifre[sayac]='9';
+               sayac++;
+               break;
+            
+            case 0b11001000:// / operatoru
+               lcd_putc('/');
+               girilenSifre[sayac]='/';
+               sayac++;
+               break;
+            
+            case 0b11011000:// * 
+               lcd_putc('*');
+               girilenSifre[sayac]='*';
+               sayac++;
+               break;
+             
+            case 0b11101000:// -
+               lcd_putc('-');
+               girilenSifre[sayac]='-';
+               sayac++;
+               break;
+            case 0b11111000:// +
+               lcd_putc('+');
+               girilenSifre[sayac]='+';
+               sayac++;
+               break;
+            case 0b10111000: // = 
+               //printf(lcd_putc, '=');
+               
+               break;
+            
+            case 0b00111000: // \f
+               lcd_putc('\f');
+               girilenSifre = "";
+               break;
+}
+
+
+}
+
+BOOL karsilastir(){
+   int esitlikKontrolu = 0; //6 hanenin a6sý da eþitse 6deðerinde olucak ve þifre doðrulanacak
+   for(int i  = 0 ; i< 6;i++){
+   
+      if(girilenSifre[i] == asilSifre[i]){
+          esitlikKontrolu++;
+      }else{
+         return FALSE;
+      }
+    
+   }
+   
+   if(esitlikKontrolu == 6){
+      return TRUE;
+   }else{
+      return False;
+   }
+    
+}
+
+void main()
+{
+   set_tris_d(0xff);
+   set_tris_b(0x00);
+   
+   output_b(0x00);
+   lcd_init();
+   
+   while(TRUE)
+   {
+      //TODO: User Code
+     if(input(pin_D3) == 1){//D3 pini yanýyorsa kesinlikle bir butona basýlmýþtýr
+         if(karakterSayisi == 6){
+            break;
+     
+         }
+         karakterSayisi++;
+     
+         
+         int basildi = input_D();
+         sifreyiAl(basildi); 
+       
+       while(input(pin_D3) == 1);
+     }
+       
+         
+     
+   }
+   if(karsilastir() == True){
+         printf(lcd_putc,"/f sifre Dogru");
+    }else{
+         printf(lcd_putc,"/f sifre yanlis");
+    }
+   
+   
+
+}
